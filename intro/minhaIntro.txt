@@ -1,0 +1,36 @@
+tópicos:
+
+1. antes do arduino
+
+ja existiam plataformas de programação de hardware (8051, p. ex.)
+
+o processo era um pouco mais complicado: escrever código, em C ou ASM, compilar, linkar, gravar na placa e executar
+
+exemplos...
+
+2. o nascimento do arduino
+
+univ ivrea...
+
+objetivo...
+
+time...
+
+como se espalhou pelo mundo
+
+mesmo ano do lançamento da revista Make:
+
+3. a plataforma
+
+ placa (s)
+
+ IDEs de programacao
+
+4. como cmoeçar
+
+
+5. primeiros projetos
+
+6. referencias
+
+

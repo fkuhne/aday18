@@ -1,0 +1,65 @@
+https://www.ted.com/talks/massimo_banzi_how_arduino_is_open_sourcing_imagination?language=en#t-502614
+
+
+Palestra: Introdução ao Arduino
+  - O que é? plataforma de desenvolvimento de protótipos eletrônicos
+    placa (hardware), IDE (ambiente + bibliotecas), comunidade
+    É totalmente open-source, ou seja, possui todos os artefatos para duplicação do
+    circuito liberados para estudo, cópia, modificação e distribuição.
+
+  - Origem: Instituto Ivrea, na Itália. Lançado em 2005 com o objetivo de proporcionar
+    aos alunos uma plataforma barata, moderna, e de fácil utilização.
+  - Características: a placa é composta basicamente de um microcontrolador, pinos para
+    conexão de elementos que vão interagir com o mundo externo, conexão USB para
+    comunicação com um computador e conexão de alimentação.
+
+    O microcontrolador é bastante simples, e não tem grandes poderes computacionais, já
+    que o objetivo é ser barato e de fácil programação; fazer uma comparação do Arduino
+    com um computador e com um smartphone;
+
+    - Medida de performanca: Dhrystone MIPS (millions of instructions per second)
+      - RPi: 875 DMIPS
+      - Arduino: 5.2 DMIPS
+
+    UNO: ATmega328P, 8-bit, 16MHz, 14DIOs, 6PWMs, 6ADs, 32kB Flash, 2kB RAM
+    MEGA: ATmega2560, 8-bit, 16MHz, 54DIOs, 15PWMs, 16ADs, 256kB Flash, 8kB RAM
+    DUE: SAM3X8E ARM Cortex-M3, 32-bit, 84MHz, 54DIOs, 12 PWMs, 12ADs, 2DAs, 512kB Flash, 
+         96kB RAM, 3.3VDC
+    NANO: semelhante ao UNO, mas compacto o bastante para ser usado em protoboards
+    ZERO: mesmo form-factor do UNO, mas com um SAMD21 ARM Cortex-M0, 32-bit, 42MHz, 20DIOs,
+          18PWMs, 6ADs, 1DA, 256kB Flash, 32kB, RAM
+    Yún: dois uCs na placa. Primeiro Arduino com Linux embarcado (OpenWRT), ethernet, wifi,
+         sd-card, além de um uC ATmega32u4 8-bit 16MHz para fazer a ponte entre os sketches
+         e o Linux
+    MKR1000: SAMD21 ARM Cortex-M0, 32-bit, 48MHz, wifi, ckt para carga de bateria Li-Po, 
+    GEMMA: wearables. ATiny85, 8-bit, 8MHz, 3DIOs, 2PWMs, 1AD, 8kB Flash, 512b RAM
+  
+  - Shields: basicamente são placas de expansão, que podem ser empilhadas à placa principal
+             do Arduino. Geralmente um shield segue o mesmo form-factor do UNO. Um shield
+             vai então fornecer uma funcionalidade adicional ao sistema. A IDE do Arduino
+             fornece APIs de programação para muitas destas funcionalidades, como por
+             exemplo, comunicação, displays LCD, motores, sensores, cartões de memória,
+             etc...
+    - Lista infinita de shields: http://www.shieldlist.org/
+    - Modelos mais comuns:
+      - placa de prototipação
+      - ethernet
+      - GPS
+      - cartão SD
+      - LCD
+      - PWM/servo
+      - WiFi, Bluetooth
+      - IMU
+
+  - IDE: é o ambiente de desenvolvimento de software e upload. Baseado no Processing.
+         Open-source, ou seja, seu código-fonte está disponível para que outros usuários
+         possam estudar, copiar, modificar, re-utilizar, e re-distribuir.
+    Toda a utilização dos recursos está baseada em bibliotecas de funções, que escondem
+      códigos mais complexos e permitem um rápido aprendizado e implementação. Exemplo:
+      acesso a pinos de I/O, PWM, sinais analógicos, porta serial, comunicação I2C,
+      acionamento de motores, ...
+    Funções principais, setup(), loop(), botão upload, seleção de placa, códigos de exemplo.
+
+  - Exemplos de uso: o que dá pra fazer com um Arduino? O que não dá pra fazer? Citar:
+                     impressoras 3D, fresas CNC, drones, robôs, mãos biônicas, monitoramento
+                     ambiental, controle de sinais de entrada e saída dos mais diversos
