@@ -1,0 +1,202 @@
+8051 Assembler           Version 1.00   05/27/116 11:50:03    Page 1
+C:\You Tube - Meu Canal\07 Assembly 8051\Assembly_8051_051_Escrita_em_display_LCD\8051_WR_files_051\source_aula51_WR.a51
+
+
+
+    1 0000              ;
+    2 0000              ;   Curso de Assembly para 8051 WR Kits
+    3 0000              ;
+    4 0000              ;   Aula 50 - Inicializando um display LCD modo 8 bits (padrão Hitachi HD44780U)
+    5 0000              ;
+    6 0000              ;   
+    7 0000              ;  
+    8 0000              ;
+    9 0000              ;   MCU: AT89S51    Clock: 12MHz    Ciclo de Máquina: 1µs
+   10 0000              ;
+   11 0000              ;  
+   12 0000              ;   Sistema Sugerido: PARADOXUS 8051
+   13 0000              ;
+   14 0000              ;   Disponível a venda em https://wrkits.com.br/catalog/show/140
+   15 0000              ;
+   16 0000              ;
+   17 0000              ; www.wrkits.com.br | facebook.com/wrkits | youtube.com/user/canalwrkits
+   18 0000              ;
+   19 0000              ;   Autor: Eng. Wagner Rambo   |   Data: Maio de 2016
+   20 0000              ;
+   21 0000              ;
+   22 0000              
+   23 0000              
+   24 0000              ; --- Mapeamento de Hardware (PARADOXUS 8051) ---
+   25 0000                       rs      equ     P1.5    ;Reg Select ligado em P1.7
+   26 0000                       rw      equ     P1.6    ;Read/Write ligado em P1.6
+   27 0000                       en      equ     P1.7    ;Enable ligado em P1.5
+   28 0000                       dat     equ     P2      ;Bits de dados em todo P2
+   29 0000              
+   30 0000              
+   31 0000              ; --- Vetor de RESET ---
+   32 0000                      org     0000h           ;origem no endereço 00h de memória
+   33 0000 1156                 acall   delay500ms      ;aguarda 500ms para estabilizar
+   34 0002              
+   35 0002              
+   36 0002              
+   37 0002              ; --- Programa Principal ---
+   38 0002              inicio:
+   39 0002              
+   40 0002 110B                 acall   lcd_init        ;Chama sub rotina de inicialização
+   41 0004                      
+   42 0004 90006A               mov     dptr,#LCD1      ;Move mensagem para DPTR
+   43 0007 1131                 acall   send_lcd        ;Chama sub rotina para enviar mensagem para LCD
+   44 0009              
+   45 0009              
+   46 0009 0109                 ajmp    $               ;Prende programa aqui
+   47 000B              
+   48 000B              
+   49 000B              ; --- Desenvolvimento das Sub Rotinas Auxiliares ---
+   50 000B              
+   51 000B              ;================================================================================
+   52 000B              lcd_init:                       ;Sub Rotina para Inicialização do Display
+   53 000B               
+   54 000B 743C                 mov      a,#60d         ;move literal 00111100b para acc
+   55 000D 111C                 acall    config         ;chama sub rotina config
+   56 000F 740E                 mov      a,#14d         ;move literal 00001110b para acc
+   57 0011 111C                 acall    config         ;chama sub rotina config
+8051 Assembler           Version 1.00   05/27/116 11:50:03    Page 2
+C:\You Tube - Meu Canal\07 Assembly 8051\Assembly_8051_051_Escrita_em_display_LCD\8051_WR_files_051\source_aula51_WR.a51
+
+
+
+   58 0013 7401                 mov      a,#1d          ;move literal 00000001b para acc
+   59 0015 111C                 acall    config         ;chama sub rotina config
+   60 0017 7406                 mov      a,#6d          ;move literal 00000110b para acc
+   61 0019 111C                 acall    config         ;chama sub rotina config
+   62 001B 22                   ret                     ;retorna
+   63 001C              
+   64 001C              ;================================================================================
+   65 001C              config:                         ;Sub Rotina de Configuração
+   66 001C              
+   67 001C C297                 clr      en             ;limpa pino en
+   68 001E C295                 clr      rs             ;limpa pino rs
+   69 0020 C296                 clr      rw             ;limpa pino rw
+   70 0022 1151                 acall    wait           ;aguarda 55us
+   71 0024 D297                 setb     en             ;aciona enable
+   72 0026 1151                 acall    wait           ;aguarda 55us
+   73 0028 F5A0                 mov      dat,a          ;carrega dados em Port P2
+   74 002A 1151                 acall    wait           ;aguarda 55us com barramento igual ao valor de acc
+   75 002C C297                 clr      en             ;limpa pino en
+   76 002E 1151                 acall    wait           ;aguarda 55us
+   77 0030 22                   ret                     ;retorna
+   78 0031              
+   79 0031              ;================================================================================
+   80 0031              send_lcd:                       ;Sub Rotina para Enviar dados ao LCD
+   81 0031              
+   82 0031 7800                 mov      R0,#0d         ;Move valor 0d para R0
+   83 0033              send:
+   84 0033 E8                   mov      a,R0           ;Move conteúdo de R0 para acc
+   85 0034 08                   inc      R0             ;Incrementa acc
+   86 0035 93                   movc     a,@a+dptr      ;Move o byte relativo de dptr somado
+   87 0036                                              ;com o valor de acc para acc
+   88 0036 113C                 acall    w_dat          ;chama sub rotina para escrita de dados
+   89 0038 B810F8               cjne     R0,#16d,send   ;compara R0 com valor de colunas e desvia se for diferente
+   90 003B 22                   ret                     ;retorna
+   91 003C              
+   92 003C              ;================================================================================
+   93 003C              w_dat:                          ;Sub Rotina para preparar para escrita de mensagem
+   94 003C              
+   95 003C C297                 clr      en             ;limpa enable
+   96 003E D295                 setb     rs             ;seta rs
+   97 0040 C296                 clr      rw             ;limpa rw (escrita)
+   98 0042 1151                 acall    wait           ;aguarda 55us
+   99 0044 D297                 setb     en             ;seta enable
+  100 0046 1151                 acall    wait           ;aguarda 55us
+  101 0048 F5A0                 mov      dat,a          ;carrega mensagem
+  102 004A 1151                 acall    wait           ;aguarda 55us
+  103 004C C297                 clr      en             ;limpa enable
+  104 004E 1151                 acall    wait           ;aguarda 55us
+  105 0050 22                   ret                     ;retorna
+  106 0051                
+  107 0051              ;================================================================================
+  108 0051              ;write_lcd:                      ;Sub Rotina para Escrita de mensagem
+  109 0051                
+  110 0051              ;        clr      en             ;limpa en
+  111 0051              ;        mov      rs,c           ; reg datos (1)  control (0)
+  112 0051              ;        clr      rw
+  113 0051              ;        setb     en
+  114 0051              ;        mov      dat,a
+8051 Assembler           Version 1.00   05/27/116 11:50:03    Page 3
+C:\You Tube - Meu Canal\07 Assembly 8051\Assembly_8051_051_Escrita_em_display_LCD\8051_WR_files_051\source_aula51_WR.a51
+
+
+
+  115 0051              ;        clr      en
+  116 0051              ;        acall    delay500ms
+  117 0051              ;        ret
+  118 0051              
+  119 0051              ;================================================================================
+  120 0051              wait:                           ;Sub Rotina para atraso de 55us
+  121 0051              
+  122 0051 7D37                 mov     R5,#055d        ;Carrega 55d em R5
+  123 0053              aux0:           
+  124 0053 DDFE                 djnz    R5,aux0         ;Decrementa R5. R5 igual a zero? Não, desvia para aux
+  125 0055 22                   ret                     ;Sim, retorna
+  126 0056              
+  127 0056              
+  128 0056              delay500ms:                     ;Sub Rotina para atraso de 500ms
+  129 0056                                              ; 2       | ciclos de máquina do mnemônico call
+  130 0056 79FA                 mov     R1,#0fah        ; 1       | move o valor 250 decimal para o registrador R1
+  131 0058               
+  132 0058              aux1:
+  133 0058 7AF9                 mov     R2,#0f9h        ; 1 x 250 | move o valor 249 decimal para o registrador R2
+  134 005A 00                   nop                     ; 1 x 250
+  135 005B 00                   nop                     ; 1 x 250
+  136 005C 00                   nop                     ; 1 x 250
+  137 005D 00                   nop                     ; 1 x 250
+  138 005E 00                   nop                     ; 1 x 250
+  139 005F              
+  140 005F              aux2:
+  141 005F 00                   nop                     ; 1 x 250 x 249 = 62250
+  142 0060 00                   nop                     ; 1 x 250 x 249 = 62250
+  143 0061 00                   nop                     ; 1 x 250 x 249 = 62250
+  144 0062 00                   nop                     ; 1 x 250 x 249 = 62250
+  145 0063 00                   nop                     ; 1 x 250 x 249 = 62250
+  146 0064 00                   nop                     ; 1 x 250 x 249 = 62250
+  147 0065              
+  148 0065 DAF8                 djnz    R2,aux2         ; 2 x 250 x 249 = 124500     | decrementa o R2 até chegar a zero
+  149 0067 D9EF                 djnz    R1,aux1         ; 2 x 250                    | decrementa o R1 até chegar a zero
+  150 0069              
+  151 0069 22                   ret                     ; 2                          | retorna para a função main
+  152 006A                                              ;------------------------------------
+  153 006A                                              ; Total = 500005 us ~~ 500 ms = 0,5 seg 
+  154 006A              
+  155 006A              
+  156 006A              ;================================================================================
+  157 006A              ; Definição de Mensagens para Enviar ao LCD
+  158 006A              LCD1:
+  159 006A 20 20 50             db    '  PARADOXUS 8051'
+      006D 41 52 41
+      0070 44 4F 58
+      0073 55 53 20
+      0076 38 30 35
+      0079 31
+  160 007A              
+  161 007A              
+  162 007A                      end                     ;Final do programa
+
+Defined Symbols:
+  DAT                                       0000A0  160
+  EN                                        000097  151
+  RS                                        000095  149
+  RW                                        000096  150
+
+Defined Labels:
+  AUX0                                      000053  83
+  AUX1                                      000058  88
+  AUX2                                      00005F  95
+  CONFIG                                    00001C  28
+  DELAY500MS                                000056  86
+  INICIO                                    000002  2
+  LCD1                                      00006A  106
+  LCD_INIT                                  00000B  11
+  SEND                                      000033  51
+  SEND_LCD                                  000031  49
+  W_DAT                                     00003C  60
+  WAIT                                      000051  81
