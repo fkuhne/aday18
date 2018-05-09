@@ -1,3 +1,8 @@
+https://www.ted.com/talks/massimo_banzi_how_arduino_is_open_sourcing_imagination
+
+https://vimeo.com/31389230
+
+
 tópicos:
 
 1. antes do arduino
@@ -6,13 +11,17 @@ ja existiam plataformas de programação de hardware (8051, p. ex.)
 
 o processo era um pouco mais complicado: escrever código, em C ou ASM, compilar, linkar, gravar na placa e executar
 
+o pessoa tinha q fazer um curo de eletrônica ou engenharia para a partir do 5o. semestre ter condicoes de escrever um código e montar um circuito
+
+era um processo demorado, ...
+
 exemplos...
 
 2. o nascimento do arduino
 
 univ ivrea...
 
-objetivo...
+objetivo... é uma ferramenta que promove antes de mais nada a inclusão das pessoas à tecnologia
 
 time...
 
