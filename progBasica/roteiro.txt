@@ -1,0 +1,26 @@
+1. cenário: escrevendo programas na IDE, executando na placa, e comunicando-se via porta serial
+
+2. Veremos as funções básicas primeiro
+
+3. Utilizando componentes e circuitos simples
+
+4. O Arduino usado será o Uno, com suas entradas e saídas, analógicas e digitais
+
+5. Blink (pinMode e digitalWrite)
+
+6. Botão e LED (digitalRead)
+
+7. Entrada analógica (analogWrite e potenciômetro)
+   - mostrar com um scope do Tinkercad o valor do potenciômetro
+
+8. Saída analógica com LED (tentar levar um circuito)
+
+9. Entrada analógica e saída analógica com LED
+
+10. Posicionamento do servo com potenciômetro (map e lib Servo)
+
+11. Comunicação serial
+
+12. Sensor ultrassônico com Serial (lib Ultrassonic)
+
+13. Sensor ultrassônico com display LCD
