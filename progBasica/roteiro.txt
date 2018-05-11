@@ -6,21 +6,22 @@
 
 4. O Arduino usado será o Uno, com suas entradas e saídas, analógicas e digitais
 
-5. Blink (pinMode e digitalWrite)
+5. Blink (pinMode e digitalWrite) OK
 
-6. Botão e LED (digitalRead)
+6. Botão e LED (digitalRead) OK
 
-7. Entrada analógica (analogWrite e potenciômetro)
+7. Entrada analógica (analogWrite e potenciômetro) OK
    - mostrar com um scope do Tinkercad o valor do potenciômetro
+   - mostrar o valor do AD na Serial
+   - adicionar um LED e fazer o potenciômetro variar o delay (só se der tempo)
 
-8. Saída analógica com LED (tentar levar um circuito)
+9. Entrada analógica e saída analógica com LED OK
+   - chamar a atenção para a diferença do pino!
+   - explicar a função do map
+   - mostrar os dados pela serial
 
-9. Entrada analógica e saída analógica com LED
+10. Posicionamento do servo com potenciômetro (lib Servo) OK
 
-10. Posicionamento do servo com potenciômetro (map e lib Servo)
+12. Sensor ultrassônico com Serial OK
 
-11. Comunicação serial
-
-12. Sensor ultrassônico com Serial (lib Ultrassonic)
-
-13. Sensor ultrassônico com display LCD
+13. Sensor ultrassônico com display LCD OK
