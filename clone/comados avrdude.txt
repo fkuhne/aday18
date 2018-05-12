@@ -1,0 +1,10 @@
+=== Roteiro ===
+
+
+
+avrdude -C ..\etc\avrdude.conf -v -patmega328p -cstk500v1 -PCOM4 -b19200 -t
+
+dump flash 0x7e00 512
+ 
+avrdude -C ..\etc\avrdude.conf -v -patmega328p -cstk500v1 -PCOM4 -b19200 -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xDE:m -Ulfuse:w:0xFF:m
+
